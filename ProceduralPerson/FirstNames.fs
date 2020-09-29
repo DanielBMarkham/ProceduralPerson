@@ -1313,3 +1313,4 @@ let firstNameAndFrequenciesSum =
     ((fst x,newAcc), newAcc)
     ) 0.0
 let firstNameAndFrequencies = fst firstNameAndFrequenciesSum
+//printfn "%A" firstNameAndFrequencies.[firstNameAndFrequencies.Length-1]
