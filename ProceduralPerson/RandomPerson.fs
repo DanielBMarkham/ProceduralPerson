@@ -1,7 +1,11 @@
 ﻿module RandomPerson
 open LastNames
 open FirstNames
+open ZipCode
 open System
+
+
+
 
 let inline upperCaseFirstLetter (s:string) =
   let mutable c=s.ToLower().ToCharArray()
@@ -23,3 +27,27 @@ let pickRandomFirstName() =
   let filteredList=firstNameAndFrequencies|>List.filter(fun x->newNum<(snd x))
   let chosen=filteredList.[0]
   upperCaseFirstLetter (fst chosen)
+
+let zipCodeAndFrequenciesSum =
+  zipCodeFrequenciesList
+  |> List.mapFold(fun acc x->
+    let newAcc=acc+x.Population
+    ((
+      {
+        ZipCode=x.ZipCode
+        City=x.City
+        County=x.County
+        Population=newAcc
+        State=x.State
+      }
+      ), newAcc)
+    ) 0.0
+
+let pickRandomZipCode() =
+  // NEED TO PUT IN RUNNING TOTAL POP
+  let totalPopulation=snd zipCodeAndFrequenciesSum
+  let rnd=Random()
+  let newNum=rnd.NextDouble()*totalPopulation
+  let filteredList=fst zipCodeAndFrequenciesSum|>List.filter(fun x->newNum<(x.Population))
+  let chosen=filteredList.[0]
+  chosen

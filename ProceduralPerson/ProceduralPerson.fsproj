@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="ZipCode.fs" />
     <Compile Include="LastNames.fs" />
     <Compile Include="FirstNames.fs" />
     <Compile Include="RandomPerson.fs" />
