@@ -33,12 +33,9 @@ let zipCodeAndFrequenciesSum =
   |> List.mapFold(fun acc x->
     let newAcc=acc+x.Population
     ((
-      {
-        ZipCode=x.ZipCode
-        City=x.City
-        County=x.County
-        Population=newAcc
-        State=x.State
+      { 
+        x with
+          Population=newAcc
       }
       ), newAcc)
     ) 0.0
