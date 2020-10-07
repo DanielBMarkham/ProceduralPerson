@@ -1,5 +1,5 @@
 ﻿module FirstNames
-let firstNamesAndFrequenciesArray =
+let femaleFirstNamesAndFrequenciesArray =
   [|
     ("MARY","2.629")
     ;("PATRICIA","1.073")
@@ -1001,7 +1001,10 @@ let firstNamesAndFrequenciesArray =
     ;("HERMINIA","0.008")
     ;("TERRA","0.008")
     ;("CELINA","0.008")
-    ;("JAMES","3.318")
+  |]
+let maleFirstNamesAndFrequenciesArray=
+  [|
+    ("JAMES","3.318")
     ;("JOHN","3.271")
     ;("ROBERT","3.143")
     ;("MICHAEL","2.629")
@@ -1302,6 +1305,14 @@ let firstNamesAndFrequenciesArray =
     ;("FREDDIE","0.046")
     ;("WADE","0.045")
   |]
+
+let firstNamesAndFrequenciesArray,gender =
+  let rnd=System.Random()
+  let n= rnd.NextDouble()
+  match n with 
+    | x when x>0.5->femaleFirstNamesAndFrequenciesArray,"Female"
+    |_->maleFirstNamesAndFrequenciesArray, "Male"
+
 
 let firstNameAndFrequenciesList =
   firstNamesAndFrequenciesArray |> Array.toList |> List.map(fun x->(fst x,System.Double.Parse((snd x).TrimEnd('%'))))
