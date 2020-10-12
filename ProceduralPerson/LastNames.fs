@@ -572,16 +572,19 @@ let lastNamesAndFrequenciesArray =
   ;("MORTON","0.06%")
   |]
 
-
+let lastNameProbabilityComputer (x:string*string) = System.Double.Parse((snd x).TrimEnd('%'))
 let lastNameAndFrequenciesList =
-  lastNamesAndFrequenciesArray |> Array.toList |> List.map(fun x->(fst x,System.Double.Parse((snd x).TrimEnd('%'))))
-
+  lastNamesAndFrequenciesArray |> Array.toList |> List.map(fun x->(x,lastNameProbabilityComputer(x)))
 let lastNameAndFrequenciesSum =
-  lastNameAndFrequenciesList
+  fst (lastNameAndFrequenciesList
   |> List.mapFold(fun acc x->
     let newAcc=acc+snd x
     ((fst x,newAcc), newAcc)
-    ) 0.0
-let lastNameAndFrequencies = fst lastNameAndFrequenciesSum
-
-
+    ) 0.0)
+let pickRandomLastName() =
+  let maxFirstName=snd lastNameAndFrequenciesSum.[lastNameAndFrequenciesSum.Length-1]
+  let rnd=System.Random()
+  let newNum=rnd.NextDouble()*maxFirstName
+  let filteredList=lastNameAndFrequenciesSum|>List.filter(fun x->newNum<(snd x))
+  let chosen=fst (fst filteredList.[0])
+  chosen
