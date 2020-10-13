@@ -1330,3 +1330,11 @@ let pickRandomFirstNameAndGender() =
   let chosen=fst (fst filteredList.[0])
   chosen,gender
 
+let pickRandomFirstName() =
+  let maxFirstName=snd firstNameAndFrequenciesSum.[firstNameAndFrequenciesSum.Length-1]
+  let rnd=System.Random()
+  let newNum=rnd.NextDouble()*maxFirstName
+  let filteredList=firstNameAndFrequenciesSum|>List.filter(fun x->newNum<(snd x))
+  let chosen=fst (fst filteredList.[0])
+  chosen
+
